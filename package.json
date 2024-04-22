@@ -1,0 +1,15 @@
+{
+  "name": "bed2024apr_p02_s10255872",
+  "version": "1.0.0",
+  "description": "For BED Weekly Practicals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  }
+}
