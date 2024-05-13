@@ -5,14 +5,15 @@ const sql = require("mssql");
 const dbConfig = require("./dbConfig");
 
 
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); // Path to the public folder
 
 const app = express();
 const port = 3000;
-
+const staticMiddleware = express.static("public");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // For form data handling
+app.use(staticMiddleware); // Mount the static middleware
 
 app.get("/books", booksController.getAllBooks);
 app.get("/books/:id", booksController.getBookById);
