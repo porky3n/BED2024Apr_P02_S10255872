@@ -1,25 +1,36 @@
 const express = require("express");
 const validateBook = require("./middlewares/validateBook");
 const booksController = require("./controllers/booksController");
+const usersController = require("./controllers/usersController");
 const sql = require("mssql");
 const dbConfig = require("./dbConfig");
-
-
 const bodyParser = require("body-parser"); // Path to the public folder
 
 const app = express();
 const port = 3000;
-const staticMiddleware = express.static("public");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // For form data handling
-app.use(staticMiddleware); // Mount the static middleware
+
+app.use(express.static("public"));
+
+const router=express.Router();
+app.use("/users",router);
 
 app.get("/books", booksController.getAllBooks);
 app.get("/books/:id", booksController.getBookById);
 app.post("/books", validateBook, booksController.createBook); // POST for creating books (can handle JSON data)
 app.put("/books/:id", validateBook, booksController.updateBook);
 app.delete("/books/:id", booksController.deleteBook); // DELETE for deleting books
+
+router.get("/with-books", usersController.getUsersWithBooks);
+router.get("/search", usersController.searchUsers);
+router.post("/", usersController.createUser); // Create user
+router.get("/", usersController.getAllUsers); // Get all users
+router.get("/:id", usersController.getUserById); // Get user by ID
+router.put("/:id", usersController.updateUser); // Update user
+router.delete("/:id", usersController.deleteUser); // Delete user
+
 
 
 app.listen(port, async () => {
@@ -44,3 +55,6 @@ process.on("SIGINT", async () => {
   console.log("Database connection closed");
   process.exit(0); // Exit with code 0 indicating successful shutdown
 });
+
+
+module.exports = router;

@@ -40,7 +40,7 @@ class Book {
             result.recordset[0].title,
             result.recordset[0].author
           )
-        : null; // Handle book not found
+        : null; // Handle user not found
     }
 
     static async createBook(newBookData) {
@@ -56,7 +56,7 @@ class Book {
   
       connection.close();
   
-      // Retrieve the newly created book using its ID
+      // Retrieve the newly created user using its ID
       return this.getBookById(result.recordset[0].id);
     }
 
@@ -74,7 +74,7 @@ class Book {
   
       connection.close();
   
-      return this.getBookById(id); // returning the updated book data
+      return this.getBookById(id); // returning the updated user data
     }
   
     static async deleteBook(id) {
